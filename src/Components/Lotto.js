@@ -23,20 +23,23 @@ class Lotto extends Component {
   constructor(props){
     super(props)
     this.state = {
-      numbers:[]
+      numbers:Array.from({length: this.props.numBalls})
     }
-  }
-
-  componentDidMount(){
-    this.getNumbers()
   }
 
   getNumbers=()=>{
-    let newNumbers = [];
-    for (var i = 0; i < this.props.numBalls; i++) {
-      newNumbers.push(Math.floor(Math.random()* this.props.maxNum)+1)
-    }
-    this.setState({numbers: newNumbers})
+    // let newNumbers = [];
+    // for (var i = 0; i < this.props.numBalls; i++) {
+    //   newNumbers.push(Math.floor(Math.random()* this.props.maxNum)+1)
+    // }
+    // this.setState({numbers: newNumbers})
+    // 
+    //because we used the Array.from method we don't have to do this because we have something to map over
+    this.setState(curState =>({
+      numbers: curState.numbers.map(
+        n=>Math.floor(Math.random()* this.props.maxNum)+1
+      )
+    }));
   }
 
   render(){
